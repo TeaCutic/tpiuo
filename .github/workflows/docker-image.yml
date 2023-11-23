@@ -37,5 +37,18 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build -t producer:latest lab1/producer
+    
+    - name: Build and Push to ACR
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: lab1reg.azurecr.io/producer:tag
+        file: lab1/producer/Dockerfile
+        context: lab1/producer/producer.py 
+
+    - name: Build and deploy Container App
+      uses: azure/container-apps-deploy-action@v1
+      with:
+         appSourcePath: ${{ github.workspace }}
+         acrName: lab1reg
+         imageToBuild: lab1reg.azurecr.io/producer:latest
