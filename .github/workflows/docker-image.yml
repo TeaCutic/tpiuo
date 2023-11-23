@@ -38,4 +38,4 @@ jobs:
 
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file lab1/producer/ --tag producer:$(date +%s)
+      run: docker build . --file lab1/producer/Dockerfile --tag producer:latest lab1/producer
