@@ -2,7 +2,8 @@ name: Docker Image CI
 
 on:
   push:
-    branches: "main" 
+    branches:
+      - main
     paths:
       - 'lab1/producer/producer.py'
 
@@ -11,43 +12,40 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: EditorConfig Check
-      run: |
-        npx editorconfig-checker
-         
+      - name: EditorConfig Check
+        run: |
+          npx editorconfig-checker
+
   build-and-deploy:
     runs-on: ubuntu-latest
 
     needs: [editorconfig-check]
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-    
-    - name: Log in to Azure
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS2 }}
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - uses: actions/checkout@v3
-    - name: AzureContainerRegistryLogin
-      run: az acr login --name lab1reg.azurecr.io
-    
-    - name: DockerImageBuild
-      run: docker build -t lab1reg.azurecr.io/producer:latest lab1/producer
+      - name: Log in to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS2 }}
 
-    - name: PushDockerImageToACR
-      run: docker push lab1reg.azurecr.io/producer:latest
-    
-    - name: Build and deploy Container App
-      uses: azure/container-apps-deploy-action@v1
-      with:
-        resourceGroup: fervjestina
-        containerAppName: producer-container-app
-        namespace: default
-        location: West Europe
-        imageToDeploy: lab1reg.azurecr.io/producer:latest
-    
+      - name: Azure Container Registry Login
+        run: az acr login --name lab1reg.azurecr.io
+
+      - name: Docker Image Build and Push to ACR
+        run: |
+          docker build -t lab1reg.azurecr.io/producer:latest lab1/producer
+          docker push lab1reg.azurecr.io/producer:latest
+
+      - name: Build and deploy Container App
+        uses: azure/container-apps-deploy-action@v1
+        with:
+          resourceGroup: fervjestina
+          containerAppName: producer-container-app
+          namespace: default
+          location: West Europe
+          imageToDeploy: lab1reg.azurecr.io/producer:latest
