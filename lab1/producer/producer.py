@@ -6,7 +6,7 @@ from azure.eventhub import EventData
 from azure.eventhub.aio import EventHubProducerClient
  
 subreddit = 'dataengineering'
-limit = 5
+limit = 10
 timeframe = 'all'
 listing = 'top'
 EVENT_HUB_CONNECTION_STR = "Endpoint=sb://tpiuolab1.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=1j4xz6Ea7PDfr5kBbxfjSsLPKN+TIu+uq+AEhGgH5oA="
