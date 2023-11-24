@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Docker Image CI - producer
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
     branches: 
       - main
     paths:
-      - 'lab1/procuder/producer.py'
+      - 'lab1/producer/producer.py'
 
 jobs:
   editorconfig-check:
