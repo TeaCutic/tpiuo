@@ -46,5 +46,10 @@ jobs:
     - name: PushDockerImageToACR
       run: docker push lab1reg.azurecr.io/producer:latest
     
-
+    - name: Build and deploy Container App
+      uses: azure/container-apps-deploy-action@v1
+      with:
+        imageToDeploy: lab1reg.azurecr.io/producer:latest
+        resourceGroup: fervjestina
+        containerAppName: producer-container-app
     
