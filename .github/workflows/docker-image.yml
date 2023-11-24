@@ -37,8 +37,8 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS2 }}
 
     - uses: actions/checkout@v3
-    - name: Check Docker login
-      run: docker info
+    - name: AzureContainerRegistryLogin
+      run: az acr login --name lab1reg.azurecr.io
    
     
     - name: Build and Push to ACR
