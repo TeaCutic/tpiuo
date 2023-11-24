@@ -42,4 +42,4 @@ jobs:
           docker push lab1reg.azurecr.io/producer:latest
 
       - name: Build and deploy Container App
-        run: az containerapp create --resource-group fervjestina --name producer-ca --location "West Europe" --image lab1reg.azurecr.io/producer:latest
+        run: az containerapp create --resource-group fervjestina --name producer-ca --image lab1reg.azurecr.io/producer:latest
