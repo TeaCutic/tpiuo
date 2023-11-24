@@ -42,10 +42,4 @@ jobs:
           docker push lab1reg.azurecr.io/producer:latest
 
       - name: Build and deploy Container App
-        uses: azure/container-apps-deploy-action@v1
-        with:
-          resourceGroup: fervjestina
-          containerAppName: producer-container-app
-          namespace: default
-          location: West Europe
-          imageToDeploy: lab1reg.azurecr.io/producer:latest
+        run: az containerapp create --resource-group fervjestina --name producer-ca --location "West Europe" --image lab1reg.azurecr.io/producer:latest
