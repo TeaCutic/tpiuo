@@ -52,4 +52,5 @@ jobs:
         imageToDeploy: lab1reg.azurecr.io/producer:latest
         resourceGroup: fervjestina
         containerAppName: producer-container-app
+        location: West Europe
     
