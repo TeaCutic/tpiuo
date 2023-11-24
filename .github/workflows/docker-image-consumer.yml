@@ -1,0 +1,54 @@
+name: Docker Image CI - consumer
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'lab1/consumer/consumer.py'
+  pull_request:
+    branches: 
+      - main
+    paths:
+      - 'lab1/consumer/consumer.py'
+
+jobs:
+  editorconfig-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: EditorConfig Check
+        run: |
+          npx editorconfig-checker
+  linter:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Super-Linter
+      uses: super-linter/super-linter@v5.6.1
+
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    needs: [editorconfig-check, linter]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Log in to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS2 }}
+
+      - name: Azure Container Registry Login
+        run: az acr login --name lab1reg.azurecr.io
+
+      - name: Docker Image Build and Push to ACR
+        run: |
+          docker build -t lab1reg.azurecr.io/consumer:latest lab1/consumer
+          docker push lab1reg.azurecr.io/consumer:latest
+      - name: Build and deploy Container App
+        run: az containerapp create --resource-group fervjestina --environment fervjestina --name consumer-ca --image lab1reg.azurecr.io/consumer:latest --registry-server lab1reg.azurecr.io
