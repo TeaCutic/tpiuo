@@ -49,8 +49,9 @@ jobs:
     - name: Build and deploy Container App
       uses: azure/container-apps-deploy-action@v1
       with:
-        imageToDeploy: lab1reg.azurecr.io/producer:latest
         resourceGroup: fervjestina
         containerAppName: producer-container-app
+        namespace: default
         location: West Europe
+        imageToDeploy: lab1reg.azurecr.io/producer:latest
     
