@@ -39,5 +39,5 @@ r = get_reddit(subreddit,listing,limit,timeframe)
 
 producer = EventHubProducerClient.from_connection_string(
         conn_str=EVENT_HUB_CONNECTION_STR, eventhub_name=EVENT_HUB_NAME
-    )
+    ) 
 asyncio.run(sendData(r)) 
