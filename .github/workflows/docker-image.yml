@@ -44,6 +44,7 @@ jobs:
         push: true
         tags: lab1reg.azurecr.io/producer:tag
         file: lab1/producer/Dockerfile
+        context: lab1/producer
 
     - name: Build and deploy Container App
       uses: azure/container-apps-deploy-action@v1
