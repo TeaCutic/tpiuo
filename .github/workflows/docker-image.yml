@@ -41,7 +41,7 @@ jobs:
       run: az acr login --name lab1reg.azurecr.io
     
     - name: DockerImageBuild
-      run: docker build -t lab1reg.azurecr.io/producer:latest ./producer
+      run: docker build -t lab1reg.azurecr.io/producer:latest lab1/producer
 
     - name: PushDockerImageToACR
       run: docker push lab1reg.azurecr.io/producer:latest
