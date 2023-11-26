@@ -1,3 +1,4 @@
 azure-eventhub
 requests
 asyncio
+azure-storage-file-datalake
