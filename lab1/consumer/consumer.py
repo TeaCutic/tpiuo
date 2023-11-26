@@ -20,11 +20,9 @@ async def on_event(partition_context, event):
     directory_name = datetime.datetime.utcfromtimestamp(date).strftime('%Y/%m/%d/%H/%M')
 
     file_system_client = service_client.get_file_system_client(file_system=container_name)
-    dir_client = file_system_client.get_directory_client(directory_name)
-
-    if not dir_client.exists():
-        dir_client.create_directory()
-    file_name = str(data["id"]) + "_" + str(data["title"])
+    dir_client = file_system_client.get_directory_client(str(directory_name))
+    dir_client.create_directory()
+    file_name = str(data["id"])
     file_client = dir_client.create_file(file_name + ".txt")
     data = json.dumps(data)
     file_client.append_data(data, 0, len(data))
