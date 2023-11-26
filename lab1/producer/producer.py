@@ -18,11 +18,12 @@ async def sendData(r):
         event_data_batch = await producer.create_batch()
 
         for i in range (limit):
-         data = r["data"]["children"][i]["data"]
-         data = json.dumps(data, indent = 4)
-         event_data_batch.add(EventData(data))
+            data = r["data"]["children"][i]["data"]
+            data = json.dumps(data, indent = 4)
+            event_data_batch.add(EventData(data))
 
-        await producer.send_batch(event_data_batch)      
+        await producer.send_batch(event_data_batch)    
+        print("Data sent")  
   
  
 def get_reddit(subreddit,listing,limit,timeframe,after_flag):

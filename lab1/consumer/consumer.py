@@ -4,7 +4,7 @@ from azure.storage.filedatalake import DataLakeServiceClient
 import json
 import datetime
 
-connection_str = "Endpoint=sb://tpiuolab1.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=1j4xz6Ea7PDfr5kBbxfjSsLPKN+TIu+uq+AEhGgH5oA="
+connection_str ="Endpoint=sb://tpiuolab1.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=1j4xz6Ea7PDfr5kBbxfjSsLPKN+TIu+uq+AEhGgH5oA="
 consumer_group = "$default"
 eventhub_name = "lab1"
 client = EventHubConsumerClient.from_connection_string(connection_str, consumer_group, eventhub_name=eventhub_name)
@@ -26,15 +26,15 @@ async def on_event(partition_context, event):
         dir_client.create_directory()
     file_name = str(data["id"]) + "_" + str(data["title"])
     file_client = dir_client.create_file(file_name + ".txt")
+    data = json.dumps(data)
     file_client.append_data(data, 0, len(data))
     file_client.flush_data(len(data))
 
     await partition_context.update_checkpoint(event)
 
 async def main():
-    client = EventHubConsumerClient.from_connection_string(connection_str, consumer_group, eventhub_name=eventhub_name)
     async with client:
-        await client.receive(on_event=on_event, starting_position="-1")
+        await client.receive(on_event=on_event)
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
