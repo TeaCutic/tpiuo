@@ -20,7 +20,7 @@ async def sendData(r):
         for i in range (limit):
             data = r["data"]["children"][i]["data"]
             data = json.dumps(data, indent = 4)
-            event_data_batch.add(EventData(data))
+            event_data_batch.add(EventData(data)) 
 
         await producer.send_batch(event_data_batch)    
         print("Data sent")  
