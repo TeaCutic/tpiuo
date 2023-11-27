@@ -10,7 +10,6 @@ eventhub_name = "lab1"
 client = EventHubConsumerClient.from_connection_string(connection_str, consumer_group, eventhub_name=eventhub_name)
 
 container_name="sl-container"
-connection_string_sl = "DefaultEndpointsProtocol=https;AccountName=tpioustoragelake;AccountKey=83qMNtwGo0uaZ0NYoudmlna7DziWb5nJp4w0f9DYzV00XiI3MCLHTfP85ZAboeSzNQUe9ay6kFuF+AStwISi3w==;EndpointSuffix=core.windows.net"
 service_client = DataLakeServiceClient.from_connection_string(connection_string_sl)
 
 async def on_event(partition_context, event):
