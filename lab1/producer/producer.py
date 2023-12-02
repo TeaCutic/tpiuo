@@ -23,7 +23,7 @@ async def sendData(r):
 
         await producer.send_batch(event_data_batch) 
         while True:
-         pass    
+         pass     
 
 
 def get_reddit(subreddit,listing,limit,timeframe):
