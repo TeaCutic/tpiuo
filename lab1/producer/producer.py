@@ -22,8 +22,7 @@ async def sendData(r):
          event_data_batch.add(EventData(data))
 
         await producer.send_batch(event_data_batch) 
-        while True:
-         pass     
+             
 
 
 def get_reddit(subreddit,listing,limit,timeframe):
@@ -41,3 +40,6 @@ producer = EventHubProducerClient.from_connection_string(
         conn_str=EVENT_HUB_CONNECTION_STR, eventhub_name=EVENT_HUB_NAME
     )
 asyncio.run(sendData(r))
+print("Done")
+while True:
+    pass
