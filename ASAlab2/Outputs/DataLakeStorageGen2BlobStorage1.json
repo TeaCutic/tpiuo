@@ -1,0 +1,26 @@
+{
+    "Name": "Output",
+    "DataSourceType": "Blob Storage",
+    "BlobStorageProperties": {
+        "StorageAccounts": [
+            {
+                "AccountName": "tpioustoragelake",
+                "AccountKey": "********"
+            }
+        ],
+        "Container": "sl-container-asa",
+        "PathPattern": "{datetime:yyyy}/{datetime:MM}/{datetime:dd}/{datetime:HH}/{datetime:mm}",
+        "DateFormat": "yyyy/MM/dd",
+        "TimeFormat": "HH",
+        "AuthenticationMode": "ConnectionString"
+    },
+    "DataSourceCredentialDomain": "76524a88-5c75-4df8-aa64-83bbcb96117e.StreamAnalystics",
+    "Serialization": {
+        "Type": "Json",
+        "Encoding": "UTF8",
+        "Format": "Array"
+    },
+    "MinimumRows": null,
+    "MaximumTime": null,
+    "ScriptType": "Output"
+}

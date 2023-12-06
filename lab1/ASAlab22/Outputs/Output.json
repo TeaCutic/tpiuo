@@ -1,0 +1,14 @@
+{
+    "Name": "Output",
+    "DataSourceType": "DocumentDB",
+    "DocumentDbProperties": {
+        "AccountId": "database-cosmo",
+        "AccountKey": "********",
+        "Database": "db1",
+        "ContainerName": "db1",
+        "DocumentId": "{datetime:yyyy}/{datetime:MM}/{datetime:dd}/{datetime:HH}/{datetime:mm}",
+        "AuthenticationMode": "ConnectionString"
+    },
+    "DataSourceCredentialDomain": "316234f8-fa6e-44a0-8833-510c8dc6c0f3.StreamAnalystics",
+    "ScriptType": "Output"
+}

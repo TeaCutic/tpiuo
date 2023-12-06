@@ -1,0 +1,149 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.1.0.0",
+  "parameters": {
+    "Name": {
+      "type": "string"
+    },
+    "Location": {
+      "type": "string"
+    },
+    "Tags": {
+      "type": "object"
+    },
+    "Sku": {
+      "type": "object"
+    },
+    "OutputStartMode": {
+      "type": "string"
+    },
+    "OutputStartTime": {
+      "type": "string"
+    },
+    "EventsOutOfOrderPolicy": {
+      "type": "string"
+    },
+    "OutputErrorPolicy": {
+      "type": "string"
+    },
+    "EventsOutOfOrderMaxDelayInSeconds": {
+      "type": "int"
+    },
+    "EventsLateArrivalMaxDelayInSeconds": {
+      "type": "int"
+    },
+    "DataLocale": {
+      "type": "string"
+    },
+    "CompatibilityLevel": {
+      "type": "string"
+    },
+    "ContentStoragePolicy": {
+      "type": "string"
+    },
+    "Transformation": {
+      "type": "object"
+    },
+    "Inputs_Input": {
+      "type": "object"
+    },
+    "Inputs_Input_DataSource_SharedAccessPolicyKey": {
+      "type": "securestring"
+    },
+    "Outputs_Output": {
+      "type": "object"
+    },
+    "Outputs_Output_DataSource_AccountKey": {
+      "type": "securestring"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.StreamAnalytics/StreamingJobs",
+      "apiVersion": "2021-10-01-preview",
+      "name": "[parameters('Name')]",
+      "location": "[parameters('Location')]",
+      "tags": "[parameters('Tags')]",
+      "properties": {
+        "sku": {
+          "name": "[parameters('Sku').Name]"
+        },
+        "outputStartMode": "[parameters('OutputStartMode')]",
+        "outputStartTime": "[if(equals(parameters('OutputStartMode'),'CustomTime'), parameters('OutputStartTime'), json('null'))]",
+        "eventsOutOfOrderPolicy": "[parameters('EventsOutOfOrderPolicy')]",
+        "outputErrorPolicy": "[parameters('OutputErrorPolicy')]",
+        "eventsOutOfOrderMaxDelayInSeconds": "[parameters('EventsOutOfOrderMaxDelayInSeconds')]",
+        "eventsLateArrivalMaxDelayInSeconds": "[parameters('EventsLateArrivalMaxDelayInSeconds')]",
+        "dataLocale": "[parameters('DataLocale')]",
+        "compatibilityLevel": "[parameters('CompatibilityLevel')]",
+        "contentStoragePolicy": "[parameters('ContentStoragePolicy')]",
+        "transformation": {
+          "name": "Transformation",
+          "properties": {
+            "streamingUnits": "[parameters('Transformation').StreamingUnits]",
+            "query": "\n-- Before you begin\n-- 1. Add input: right-click the Inputs folder and select \"ASA: Add Input\" to prepare your input data.\n-- 2. Add output: right-click the Outputs folder and select \"ASA: Add Output\" to choose your sink type.\n-- 3. Edit your query below and start testing your ASA job locally.\n-- For more information, please visit: https://docs.microsoft.com/en-us/azure/stream-analytics/quick-create-visual-studio-code\n\nSELECT\n\t*\nINTO\n\tOutput\nFROM\n\tInput"
+          }
+        },
+        "inputs": [
+          {
+            "name": "Input",
+            "properties": {
+              "type": "Stream",
+              "datasource": {
+                "type": "Microsoft.ServiceBus/EventHub",
+                "properties": {
+                  "consumerGroupName": "[parameters('Inputs_Input').DataSource.ConsumerGroupName]",
+                  "eventHubName": "[parameters('Inputs_Input').DataSource.EventHubName]",
+                  "serviceBusNamespace": "[parameters('Inputs_Input').DataSource.ServiceBusNamespace]",
+                  "sharedAccessPolicyName": "[parameters('Inputs_Input').DataSource.SharedAccessPolicyName]",
+                  "sharedAccessPolicyKey": "[parameters('Inputs_Input_DataSource_SharedAccessPolicyKey')]",
+                  "authenticationMode": "[parameters('Inputs_Input').DataSource.AuthenticationMode]"
+                }
+              },
+              "compression": {
+                "type": "None"
+              },
+              "serialization": {
+                "type": "Json",
+                "properties": {
+                  "encoding": "UTF8"
+                }
+              }
+            }
+          }
+        ],
+        "outputs": [
+          {
+            "name": "Output",
+            "properties": {
+              "datasource": {
+                "type": "Microsoft.Storage/Blob",
+                "properties": {
+                  "storageAccounts": [
+                    {
+                      "accountName": "[parameters('Outputs_Output').DataSource.AccountName]",
+                      "accountKey": "[parameters('Outputs_Output_DataSource_AccountKey')]"
+                    }
+                  ],
+                  "container": "[parameters('Outputs_Output').DataSource.Container]",
+                  "pathPattern": "[parameters('Outputs_Output').DataSource.PathPattern]",
+                  "dateFormat": "[parameters('Outputs_Output').DataSource.DateFormat]",
+                  "timeFormat": "[parameters('Outputs_Output').DataSource.TimeFormat]",
+                  "authenticationMode": "[parameters('Outputs_Output').DataSource.AuthenticationMode]"
+                }
+              },
+              "serialization": {
+                "type": "Json",
+                "properties": {
+                  "encoding": "UTF8",
+                  "format": "Array"
+                }
+              }
+            }
+          }
+        ],
+        "jobType": "Cloud"
+      }
+    }
+  ]
+}
