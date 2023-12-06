@@ -23,8 +23,6 @@ async def sendData(r):
 
         await producer.send_batch(event_data_batch) 
              
-
-
 def get_reddit(subreddit,listing,limit,timeframe):
     try:
         base_url = f'https://www.reddit.com/r/{subreddit}/{listing}.json?limit={limit}&t={timeframe}'

@@ -81,7 +81,7 @@
           "name": "Transformation",
           "properties": {
             "streamingUnits": "[parameters('Transformation').StreamingUnits]",
-            "query": "\n-- Before you begin\n-- 1. Add input: right-click the Inputs folder and select \"ASA: Add Input\" to prepare your input data.\n-- 2. Add output: right-click the Outputs folder and select \"ASA: Add Output\" to choose your sink type.\n-- 3. Edit your query below and start testing your ASA job locally.\n-- For more information, please visit: https://docs.microsoft.com/en-us/azure/stream-analytics/quick-create-visual-studio-code\n\nSELECT\n\tid,\n\tauthor,\n\ttitle,\n\tselftext,\n\tups,\n\tdowns,\n\tupvote_ratio,\n\tscore,\n\tcreated,\n\tnum_comments,\n\tis_video\nINTO\n\tOutput\nFROM\n\tInput\nWHERE\n\tnum_comments > 0"
+            "query": "\n-- Before you begin\n-- 1. Add input: right-click the Inputs folder and select \"ASA: Add Input\" to prepare your input data.\n-- 2. Add output: right-click the Outputs folder and select \"ASA: Add Output\" to choose your sink type.\n-- 3. Edit your query below and start testing your ASA job locally.\n-- For more information, please visit: https://docs.microsoft.com/en-us/azure/stream-analytics/quick-create-visual-studio-code\n\nSELECT\n\tid,\n\tauthor,\n\ttitle,\n\tselftext,\n\tups,\n\tdowns,\n\tupvote_ratio,\n\tscore,\n\tcreated_utc,\n\tnum_comments,\n\tis_video\nINTO\n\tOutput\nFROM\n\tInput\nWHERE\n\tnum_comments > 0"
           }
         },
         "inputs": [

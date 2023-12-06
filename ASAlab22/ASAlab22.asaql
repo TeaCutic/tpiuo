@@ -14,7 +14,7 @@ SELECT
 	downs,
 	upvote_ratio,
 	score,
-	created,
+	created_utc,
 	num_comments,
 	is_video
 INTO

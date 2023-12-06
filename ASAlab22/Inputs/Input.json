@@ -1,0 +1,21 @@
+{
+    "Name": "Input",
+    "Type": "Data Stream",
+    "DataSourceType": "Event Hub",
+    "EventHubProperties": {
+        "ServiceBusNamespace": "tpiuolab1",
+        "EventHubName": "lab1",
+        "SharedAccessPolicyName": "RootManageSharedAccessKey",
+        "SharedAccessPolicyKey": "********",
+        "ConsumerGroupName": "$Default",
+        "AuthenticationMode": "ConnectionString"
+    },
+    "DataSourceCredentialDomain": "a73ea1e5-de99-4f02-801e-54714f1b3ded.StreamAnalystics",
+    "Serialization": {
+        "Type": "Json",
+        "Encoding": "UTF8"
+    },
+    "PartitionKey": null,
+    "CompressionType": "None",
+    "ScriptType": "Input"
+}

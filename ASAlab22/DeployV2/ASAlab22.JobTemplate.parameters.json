@@ -1,0 +1,82 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.1.0.0",
+  "parameters": {
+    "Name": {
+      "value": "ASAlab22"
+    },
+    "Location": {
+      "value": "Central US"
+    },
+    "Tags": {
+      "value": {
+        "hidden-link:/Microsoft.StreamAnalytics/streamingjobs/settings": "{\"createdFrom\":\"CICD\"}"
+      }
+    },
+    "Sku": {
+      "value": {
+        "Name": "StandardV2"
+      }
+    },
+    "OutputStartMode": {
+      "value": "JobStartTime"
+    },
+    "OutputStartTime": {
+      "value": "2023-01-01T00:00:00Z"
+    },
+    "EventsOutOfOrderPolicy": {
+      "value": "Adjust"
+    },
+    "OutputErrorPolicy": {
+      "value": "Stop"
+    },
+    "EventsOutOfOrderMaxDelayInSeconds": {
+      "value": 0
+    },
+    "EventsLateArrivalMaxDelayInSeconds": {
+      "value": 5
+    },
+    "DataLocale": {
+      "value": "en-US"
+    },
+    "CompatibilityLevel": {
+      "value": "1.2"
+    },
+    "ContentStoragePolicy": {
+      "value": "SystemAccount"
+    },
+    "Transformation": {
+      "value": {
+        "StreamingUnits": 10
+      }
+    },
+    "Inputs_Input": {
+      "value": {
+        "DataSource": {
+          "ConsumerGroupName": "$Default",
+          "EventHubName": "lab1",
+          "ServiceBusNamespace": "tpiuolab1",
+          "SharedAccessPolicyName": "RootManageSharedAccessKey",
+          "AuthenticationMode": "ConnectionString"
+        }
+      }
+    },
+    "Inputs_Input_DataSource_SharedAccessPolicyKey": {
+      "value": null
+    },
+    "Outputs_Output": {
+      "value": {
+        "DataSource": {
+          "CollectionNamePattern": "db1",
+          "DocumentId": "id",
+          "AccountId": "database-cosmo",
+          "Database": "db1",
+          "AuthenticationMode": "ConnectionString"
+        }
+      }
+    },
+    "Outputs_Output_DataSource_AccountKey": {
+      "value": null
+    }
+  }
+}
