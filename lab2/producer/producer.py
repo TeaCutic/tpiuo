@@ -13,6 +13,7 @@ listing = 'top'
 EVENT_HUB_CONNECTION_STR = "Endpoint=sb://tpiuolab1.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=1j4xz6Ea7PDfr5kBbxfjSsLPKN+TIu+uq+AEhGgH5oA="
 EVENT_HUB_NAME = "lab1"
 
+sum = 0
 async def sendData(r):
      async with producer:
         event_data_batch = await producer.create_batch()
@@ -45,11 +46,13 @@ after_flag=None
 while after == 1:
    r = get_reddit(subreddit,listing,limit,timeframe,after_flag)
    asyncio.run(sendData(r))
+   sum = sum + 10
+   print("---sent sum = ", sum)
    after_flag = r['data']['after']
    if after_flag == None:
       after = 0
    else:
-      time.sleep(10)
+      time.sleep(2)
     
 while 1==1:
    pass
