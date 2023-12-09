@@ -9,6 +9,6 @@
         "DocumentId": "id",
         "AuthenticationMode": "ConnectionString"
     },
-    "DataSourceCredentialDomain": "3e53a294-7e53-4360-9b51-28d879fa4cdf.StreamAnalystics",
+    "DataSourceCredentialDomain": "4b7d7fbc-3eec-4b13-a7cd-0acb2d0485bd.StreamAnalystics",
     "ScriptType": "Output"
 }

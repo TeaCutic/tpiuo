@@ -1,0 +1,1 @@
+Date.ToText(DateTime.Date(DateTime.From(#datetime(1970, 1, 1, 0, 0, 0) + #duration(0, 0, 0, [Document.created_utc]))), "MMMM")

@@ -2,6 +2,7 @@ import requests
 import asyncio
 import json
 import time
+import datetime
 
 from azure.eventhub import EventData
 from azure.eventhub.aio import EventHubProducerClient
@@ -47,7 +48,7 @@ while after == 1:
    r = get_reddit(subreddit,listing,limit,timeframe,after_flag)
    asyncio.run(sendData(r))
    sum = sum + 10
-   print("---sent sum = ", sum)
+   print("---sent sum = ", sum , " time is ", datetime.datetime.now())
    after_flag = r['data']['after']
    if after_flag == None:
       after = 0
