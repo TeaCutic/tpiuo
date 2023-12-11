@@ -40,4 +40,4 @@ producer = EventHubProducerClient.from_connection_string(
 asyncio.run(sendData(r)) 
 
 while True:
-    pass
+    pass 
