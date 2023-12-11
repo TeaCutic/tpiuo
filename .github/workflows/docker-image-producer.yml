@@ -51,5 +51,9 @@ jobs:
           docker build -t lab1reg.azurecr.io/producer:latest lab1/producer
           docker push lab1reg.azurecr.io/producer:latest
 
-      - name: Build and deploy Container App
-        run: az containerapp create --resource-group fervjestina --environment fervjestina --name producer-ca --image lab1reg.azurecr.io/producer:latest --registry-server lab1reg.azurecr.io
+      - name: DeployAzureContainerApps
+        uses: azure/container-apps-deploy-action@v1
+        with:
+          resourceGroup: fervjestina
+          containerAppName: producer-ca
+          imageToDeploy: lab1reg.azurecr.io/producer:latest
