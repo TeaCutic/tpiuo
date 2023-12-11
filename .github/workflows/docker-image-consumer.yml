@@ -50,5 +50,10 @@ jobs:
         run: |
           docker build -t lab1reg.azurecr.io/consumer:latest lab1/consumer
           docker push lab1reg.azurecr.io/consumer:latest
-      - name: Build and deploy Container App
-        run: az containerapp create --resource-group fervjestina --environment fervjestina --name consumer-ca --image lab1reg.azurecr.io/consumer:latest --registry-server lab1reg.azurecr.io
+          
+      - name: DeployAzureContainerApps
+        uses: azure/container-apps-deploy-action@v1
+        with:
+          resourceGroup: fervjestina
+          containerAppName: consumer-ca
+          imageToDeploy: lab1reg.azurecr.io/consumer:latest
